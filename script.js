@@ -19,7 +19,7 @@ const animate = () => {
     atom.updateSpeed();
     atom.updateSize();
 
-    if (atom.radius < 0.3) {
+    if (atom.radius < 0.6) {
       atoms.splice(index, 1);
     }
   });
@@ -37,8 +37,8 @@ class Atom {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.radius = Math.random() * 1 + 2;
-    this.speedX = Math.random() * 1 - 2;
+    this.radius = Math.random() * 1 + 1;
+    this.speedX = Math.random() * 4 - 2;
     this.speedY = Math.random() * 4 - 2;
     //     this.color = randomColors[Math.floor(Math.random() * randomColors.length)];
   }
@@ -59,10 +59,23 @@ class Atom {
   }
 }
 
+const point = {
+  x: 0,
+  y: 0,
+};
+
+let degree = 0;
+
 const generateAtoms = () => {
   atoms.push(
-    new Atom(Math.random() * canvas.width, Math.random() * canvas.height)
+    new Atom(
+      canvas.width / 2 + point.x * 200,
+      canvas.height / 2 + point.y * 200
+    )
   );
+  point.x = Math.cos((degree / 180) * Math.PI);
+  point.y = point.x * point.x;
+  degree++;
   requestAnimationFrame(generateAtoms);
 };
 
